@@ -1276,8 +1276,6 @@ function zvm_replace_selection() {
     cpos=$(($bpos + $#cutbuf - 1))
   fi
 
-  CUTBUFFER=${BUFFER:$bpos:$((epos-bpos))}
-
   # Check if it is visual line mode
   if [[ $ZVM_MODE == $ZVM_MODE_VISUAL_LINE ]]; then
     if (( $epos < $#BUFFER )); then
@@ -1285,12 +1283,10 @@ function zvm_replace_selection() {
     elif (( $bpos > 0 )); then
       bpos=$bpos-1
     fi
-    CUTBUFFER=${CUTBUFFER}$'\n'
   fi
 
   BUFFER="${BUFFER:0:$bpos}${cutbuf}${BUFFER:$epos}"
   CURSOR=$cpos
-  zvm_clipboard_copy_buffer
 }
 
 # Replace characters of the visual selection
